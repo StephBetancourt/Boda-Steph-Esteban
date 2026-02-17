@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Steph & Esteban - Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vinotinto: #630d16;
+            --dorado: #b38d45;
+            --crema: #fdfaf6;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: var(--crema); font-family: 'Montserrat', sans-serif;
+            overflow: hidden; touch-action: none;
+        }
+
+        /* --- SOBRE INICIAL --- */
+        #pantalla-sobre {
+            position: fixed; width: 100%; height: 100%;
+            background: var(--crema); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sobre-wrapper {
+            width: 320px; height: 220px; background: #f2f2f2;
+            position: relative; border: 1px solid #ddd;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .sobre-wrapper::before {
+            content: ""; position: absolute; top: 0; left: 0;
+            border-left: 160px solid transparent; border-right: 160px solid transparent;
+            border-top: 110px solid #e0e0e0; z-index: 3; transition: 0.6s; transform-origin: top;
+        }
+
+        .abeja-sello {
+            position: absolute; font-size: 40px; z-index: 10;
+            cursor: pointer; transition: 0.5s;
+        }
+
+        .abierto::before { transform: rotateX(160deg); z-index: 1; }
+        .abierto .abeja-sello { transform: scale(0); opacity: 0; }
+
+        /* --- INVITACIÓN --- */
+        #invitacion {
+            padding: 20px; text-align: center; color: var(--vinotinto);
+            display: none; height: 100vh; overflow-y: auto;
+            box-sizing: border-box; position: relative;
+        }
+
+        /* Flores estilo Canva (Vinotinto) */
+        .flower {
+            position: fixed; width: 150px; height: 150px;
+            background-size: contain; background-repeat: no-repeat;
+            z-index: -1; opacity: 0.8;
+        }
+        .top-left { top: -20px; left: -20px; transform: rotate(0deg); }
+        .bottom-right { bottom: -20px; right: -20px; transform: rotate(180deg); }
+
+        /* --- SWIPE CARD --- */
+        .swipe-zone {
+            position: relative; width: 290px; height: 400px;
+            margin: 30px auto; touch-action: none;
+        }
+
+        .card {
+            width: 100%; height: 100%; border-radius: 15px;
+            background: url('Foto_matrimonio.jpeg') center/cover no-repeat;
+            border: 10px solid white; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            position: absolute; z-index: 5; will-change: transform;
+        }
+
+        .stamp {
+            position: absolute; top: 40%; width: 100%; font-size: 50px;
+            font-weight: 900; opacity: 0; pointer-events: none; z-index: 10;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+        .stamp.si { color: #2ecc71; left: 0; transform: rotate(-15deg); }
+        .stamp.no { color: #e74c3c; left: 0; transform: rotate(15deg); }
+
+        /* Abeja voladora */
+        .bee-fly {
+            position: fixed; font-size: 25px; z-index: 99; pointer-events: none;
+            display: none; animation: wander 15s infinite linear;
+        }
+        @keyframes wander {
+            0% { top: 10%; left: -10%; }
+            25% { top: 40%; left: 30%; transform: scaleX(1); }
+            50% { top: 20%; left: 110%; transform: scaleX(-1); }
+            75% { top: 80%; left: 50%; }
+            100% { top: 10%; left: -10%; }
+        }
+
+        h1 { font-family: 'Cinzel', serif; font-size: 1.8rem; margin: 15px 0; }
+        .footer-info { font-size: 0.8rem; border-top: 1px solid var(--vinotinto); padding-top: 15px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-sobre">
+        <div class="sobre-wrapper" id="sobre" onclick="abrir()">
+            <div class="abeja-sello">🐝</div>
+            <p style="margin-top: 130px; color: var(--vinotinto); font-size: 0.8rem;">TOCA PARA ABRIR</p>
+        </div>
+    </div>
+
+    <div class="bee-fly" id="bee">🐝</div>
+
+    <div id="invitacion">
+        <div class="flower top-left">🌺🌻</div>
+        <div class="flower bottom-right">🌻🌺</div>
+
+        <p style="letter-spacing: 3px; font-size: 0.7rem; margin-top: 40px;">STEPH & ESTEBAN</p>
+        <h1>Del Match al Altar</h1>
+        <p>¿Nos acompañas a dar el "Sí"?</p>
+
+        <div class="swipe-zone" id="swipeZone">
+            <div class="stamp si" id="siStamp">¡SÍ!</div>
+            <div class="stamp no" id="noStamp">NO</div>
+            <div class="card" id="card"></div>
+        </div>
+
+        <div id="msg" style="font-weight: bold; min-height: 50px;">Desliza para confirmar</div>
+
+        <div class="footer-info">
+            <p><strong>19.06.26 | 16:00 HORAS</strong></p>
+            <p>Dress Code: Black Tie (Evitar Blanco y Vinotinto)</p>
+            <p>Respetuosamente: No niños | No +1</p>
+        </div>
+    </div>
+
+    <script>
+        // Función abrir sobre
+        function abrir() {
+            document.getElementById('sobre').classList.add('abierto');
+            setTimeout(() => {
+                document.getElementById('pantalla-sobre').style.transform = 'translateY(-100%)';
+                document.getElementById('invitacion').style.display = 'block';
+                document.getElementById('bee').style.display = 'block';
+                document.body.style.overflow = 'auto';
+            }, 600);
+        }
+
+        // Lógica de Swipe 100% Móvil
+        const card = document.getElementById('card');
+        const si = document.getElementById('siStamp');
+        const no = document.getElementById('noStamp');
+        const msg = document.getElementById('msg');
+        
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        card.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            card.style.transition = 'none';
+        }, {passive: true});
+
+        card.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX - startX;
+            let rotation = currentX / 10;
+            
+            card.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
+
+            // Opacidad de sellos
+            if (currentX > 30) { 
+                si.style.opacity = Math.min(currentX / 100, 1); 
+                no.style.opacity = 0;
+            } else if (currentX < -30) {
+                no.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+                si.style.opacity = 0;
+            } else {
+                si.style.opacity = 0; no.style.opacity = 0;
+            }
+        }, {passive: true});
+
+        card.addEventListener('touchend', (e) => {
+            isDragging = false;
+            card.style.transition = '0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            
+            if (currentX > 100) {
+                // SÍ - MATCH
+                card.style.transform = 'translateX(600px) rotate(45deg)';
+                msg.innerHTML = "<span style='color:#2ecc71'>¡HICIMOS MATCH! ❤️<br><small>Cargando lista de invitados...</small></span>";
+                // REEMPLAZA ESTE LINK POR TU GOOGLE FORM O EXCEL
+                setTimeout(() => { window.location.href = "https://docs.google.com/forms/u/0/"; }, 1500);
+            } else if (currentX < -100) {
+                // NO
+                card.style.transform = 'translateX(-600px) rotate(-45deg)';
+                msg.innerHTML = "<span style='color:#e74c3c'>TE EXTRAÑAREMOS 🐝</span>";
+            } else {
+                // REGRESA AL CENTRO
+                card.style.transform = 'translateX(0) rotate(0)';
+                si.style.opacity = 0; no.style.opacity = 0;
+            }
+            currentX = 0;
+        });
+    </script>
+</body>
+</html>
