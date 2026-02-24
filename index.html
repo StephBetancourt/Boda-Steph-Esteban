@@ -114,18 +114,19 @@
 
     <section id="inicio">
         <div class="monograma">SE</div>
+
         <div class="nombres">Stephanie & Esteban</div>
-        <p style="margin: 0;">¡Solo faltan!</p>
+        <p style="margin: 0;">¡Solo faltan...!</p>
         <div id="cuenta-regresiva">
             <div class="tiempo-box"><span class="tiempo-num" id="dias">00</span>Días</div>
             <div class="tiempo-box"><span class="tiempo-num" id="horas">00</span>Hrs</div>
             <div class="tiempo-box"><span class="tiempo-num" id="minutos">00</span>Min</div>
         </div>
-        <p style="letter-spacing: 2px;">29 de Agosto 2026]</p>
+        <p style="letter-spacing: 2px;">29 de Agosto 2026</p>
     </section>
 
     <section id="interactivo">
-        <h2>¿Hacemos match?</h2>
+        <h2>¿Contamos con tu asistencia?</h2>
         <div class="swipe-container">
             <div class="stamp si" id="sSi">¡SÍ!</div>
             <div class="stamp no" id="sNo">NO</div>
@@ -146,7 +147,7 @@
         <h2>Ubicación</h2>
         <p>Hacienda Trebolito</p>
         <div style="width: 100%; height: 250px; background: #eee; border-radius: 15px; overflow: hidden;">
-            <iframe src="https://share.google/BB8AQ7dwZ0AUIgPdE" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.737371954345!2d-74.07604789999999!3d4.8150946999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8658488c1201%3A0xb6e233e4f9e0f4c7!2sHacienda%20Trebolito%20Dan%C3%A9s!5e0!3m2!1ses!2sco!4v1771903226804!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <button class="btn-nav" style="margin-top: 20px; padding: 15px 30px; max-width: 200px;" onclick="window.open('URL_GOOGLE_MAPS_AQUI')">VER EN GPS</button>
     </section>
@@ -154,7 +155,7 @@
     <section id="confirmar">
         <h2>Confirmación</h2>
         <p>Agradecemos confirmar tu asistencia:</p>
-        <button class="btn-nav" style="padding: 20px 40px; font-size: 1rem; max-width: 250px;" onclick="window.location.href='TU_LINK_DE_GOOGLE_FORMS'">CONFIRMAR AQUÍ</button>
+        <button class="btn-nav" style="padding: 20px 40px; font-size: 1rem; max-width: 250px;" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSd73NrWCgiz5LS-DFFI4Wcr36ThEQm7GQbwI5Cy_qelsjBkRQ/viewform?usp=sharing&ouid=114552640888557239588'">CONFIRMAR AQUÍ</button>
         <div style="margin-top: 40px; font-size: 0.75rem; line-height: 1.6;">
             <p><strong>Dress Code: Black Tie</strong>.jpg]</p>
             <p>(Evitar colores blanco y vinotinto).jpg]</p>
@@ -201,7 +202,7 @@
             card.style.transition = '0.5s';
             if (diffX > 110) {
                 card.style.transform = 'translateX(800px) rotate(30deg)';
-                document.getElementById('status').innerHTML = "<h3>¡Hicimos Match! ❤️</h3>";
+                document.getElementById('status').innerHTML = "<h3>¡Allá nos vemos! ❤️</h3>";
                 setTimeout(() => location.href = '#confirmar', 1000);
             } else if (diffX < -110) {
                 card.style.transform = 'translateX(-800px) rotate(-30deg)';
